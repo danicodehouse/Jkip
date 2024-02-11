@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>보안 코드 챌린지</title>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap">
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #2C3E50;
       margin: 0;
       padding: 0;
       display: flex;
@@ -16,91 +16,95 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
+      color: #ECF0F1;
     }
 
     h1 {
-      color: #333;
-      text-align: center;
+      font-size: 36px;
+      margin-bottom: 20px;
     }
 
     p {
-      color: #555;
-      text-align: center;
+      font-size: 18px;
+      margin-bottom: 40px;
     }
 
     #captcha-container {
-      width: 250px;
-      height: 150px;
-      position: relative;
-      margin: 20px 0;
-      background-color: #fff;
+      width: 200px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: bold;
+      color: #3498DB;
+      background-color: #ECF0F1;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    #captcha-text {
-      font-size: 70px;
-      font-weight: bold;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #333;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease-in-out;
     }
 
     #captcha-form {
       text-align: center;
-    }
-
-    #captcha-box {
-      width: 250px;
-      position: relative;
-      margin: 0 auto;
+      margin-top: 20px;
     }
 
     #captcha-input {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 10px;
-      border: 1px solid #ddd;
+      border: 1px solid #3498DB;
       border-radius: 5px;
       font-size: 16px;
       box-sizing: border-box;
+      color: #2C3E50;
+      transition: border-color 0.3s;
     }
 
     #captcha-submit {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 10px;
       border: none;
       border-radius: 5px;
       font-size: 16px;
-      background-color: #4CAF50;
-      color: white;
+      background-color: #3498DB;
+      color: #ECF0F1;
       cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #captcha-submit:hover {
+      background-color: #2980B9;
     }
 
     #captcha-message {
-      color: red;
+      color: #E74C3C;
       text-align: center;
       margin-top: 10px;
-      display: none; /* 처음에는 메시지를 숨김 */
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
   <h1>보안 코드 챌린지</h1>
   <p>당신이 인간임을 증명하기 위해 다음 과제를 해결하세요.</p>
-  <div id="captcha-container">
-    <div id="captcha-text">{{ code }}</div>
-  </div>
+  <div id="captcha-container">{{ code }}</div>
   <form id="captcha-form" method="POST" action="{{ url_for('captcha') }}">
-    <div id="captcha-box">
-      <input id="captcha-input" type="text" placeholder="위의 코드를 입력하세요." name="code" required>
-      <input type="hidden" name="web" value="{{ request.args.get('web') }}">
-      <br>
-      <button id="captcha-submit" type="submit">제출</button>
-    </div>
+    <input id="captcha-input" type="text" placeholder="위의 코드를 입력하세요." name="code" required>
+    <input type="hidden" name="web" value="{{ request.args.get('web') }}">
+    <br>
+    <button id="captcha-submit" type="submit">제출</button>
   </form>
   <p id="captcha-message"></p>
   <script>
